@@ -1,0 +1,79 @@
+// Copyright 2015, gRPC Authors
+// All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+package accounting_account;
+
+option java_multiple_files = true;
+option java_package = "com.github.conanchen.gedit.accounting.account.grpc";
+option java_outer_classname = "AccountingAccountProto";
+option objc_class_prefix = "ACCANT";
+
+import "common.proto";
+
+// The accounting account service definition.
+//https://accountingexplained.com/financial/cycle/
+//https://medium.com/@RobertKhou/double-entry-accounting-in-a-relational-database-2b7838a5d7f8
+service AccountingAccountApi {
+
+    rpc UpsertAccounts (UpsertAccountsRequest) returns (stream AccountResponse) {
+    }
+
+    rpc GetAccount (GetAccountRequest) returns (AccountResponse) {
+    }
+
+    rpc FindOneAccountBy (UserAndType) returns (AccountResponse) {
+    }
+}
+
+
+message UpsertAccountsRequest {
+    string userId = 11;
+}
+
+message AccountResponse {
+    Status status = 999;
+    Account account = 1;
+}
+
+message Account {
+    string uuid = 11;
+    string userId = 12;
+    int64 created = 13;
+    Type type = 14;
+    enum Type {
+        CASH = 0; //现金
+        CURRENT_POINTS = 1; //活期积分
+        FIXED_POINTS = 2; //定期积分
+        REDPACK = 3; //红包
+        COUPON = 4; //优惠券
+    }
+
+    int32 previousBalance = 15;
+    int64 previousDate = 16;
+    int32 currentChanges = 17;
+    int64 currentDate = 18;
+    int32 currentBalance = 19;
+
+}
+
+message GetAccountRequest {
+    string uuid = 1;
+}
+
+
+message UserAndType {
+    string userId = 11;
+    Account.Type type = 14;
+}

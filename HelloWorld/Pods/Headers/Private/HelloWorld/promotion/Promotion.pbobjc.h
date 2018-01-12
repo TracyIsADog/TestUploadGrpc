@@ -1,0 +1,1 @@
+../../../../HelloWorld/promotion/Promotion.pbobjc.h

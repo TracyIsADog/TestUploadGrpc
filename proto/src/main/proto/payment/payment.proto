@@ -1,0 +1,119 @@
+// Copyright 2015, gRPC Authors
+// All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+package payment;
+
+option java_multiple_files = true;
+option java_package = "com.github.conanchen.gedit.payment.grpc";
+option java_outer_classname = "PaymentProto";
+option objc_class_prefix = "PAYMENT";
+
+import "common.proto";
+
+// The payment service definition.
+service PaymentApi {
+
+    rpc Create (CreateRequest) returns (PaymentResponse) {
+    }
+
+    rpc Get (GetRequest) returns (PaymentResponse) {
+    }
+
+    rpc List (ListRequest) returns (stream PaymentResponse) {
+    }
+
+    rpc ListMy (ListMyRequest) returns (stream PaymentResponse) {
+    }
+
+    //should be using http url called by alipay
+    rpc UpdateWithAlipayBack (UpdateWithAlipayBackRequest) returns (PaymentResponse){
+
+    }
+
+}
+
+enum Channel {
+    ALIPAY = 0;
+    WXPAY = 1;
+    YSPAY = 2;
+}
+
+message CreateRequest {
+    //only called by myself，即支付人是我
+    //payerId
+    string payeeId = 12; //收款人
+    string payeeStoreId = 13;
+    string payeeWorkerId = 14;
+    int32 shouldPay = 15; //应付金额 = 实付金额 + 实付积分等价金额
+    int32 actualPay = 16; //实付金额
+    int32 pointsPay = 17; //实付积分代替金额
+}
+
+message GetRequest {
+    string uuid = 1; //支付单编号
+}
+
+message ListRequest {
+    //only called by manager
+    string payerId = 11; //支付人
+    string payeeId = 12; //收款人
+    string payeeStoreId = 13; //收款店铺
+    int32 from = 100;
+    int32 size = 101;
+}
+
+message ListMyRequest {
+    //only called by myself
+    bool includePayee = 1;
+    bool includePayer = 2;
+    int32 from = 100;
+    int32 size = 101;
+}
+
+message PaymentResponse {
+    Status status = 999;
+    Payment payment = 1;
+}
+
+message Payment {
+    string uuid = 1; //支付单编号
+
+    string payerId = 11; //支付人
+    string payeeId = 12; //收款人
+    string payeeStoreId = 13;
+    string payeeWorkerId = 14;
+    //create following info when return from Channel支付宝、微信等返回时
+    int32 shouldPay = 15; //应付金额 = 实付金额 + 实付积分等价金额
+    int32 actualPay = 16; //实付金额
+    int32 pointsPay = 17; //实付积分代替金额
+    int32 points = 18; //返还积分
+    Status status = 19;
+    enum Status {
+        NEW = 0;
+        INPROGRESS = 50;
+        FAILED = 51;
+        OK = 52;
+    }
+
+    Channel channel = 26; //支付通道如支付宝、微信、云闪付
+    string channelOrderId = 27; //预付单编号，可能由支付通道返回的或平台产生的
+
+    int64 created = 40;
+
+}
+
+message UpdateWithAlipayBackRequest {
+    string channelOrderId = 27; //预付单编号，可能由支付通道返回的或平台产生的
+}

@@ -1,0 +1,72 @@
+syntax = "proto3";
+package store_search;
+
+option java_multiple_files = true;
+option java_package = "com.github.conanchen.gedit.store.search.grpc";
+option java_outer_classname = "StoreSearchProto";
+option objc_class_prefix = "STSCH";
+
+
+import "common.proto";
+
+// The storesearch service definition.
+service StoreSearchApi {
+    rpc Index (IndexRequest) returns (IndexResponse) {
+    }
+    
+    rpc Delete (DeleteRequest) returns (DeleteResponse) {
+    }
+    
+    rpc Search (SearchRequest) returns (stream SearchResponse) {
+    }
+}
+
+message IndexRequest {
+    string uuid = 1; //store uuid
+    string name = 2;
+    string logo = 3;
+    Location location = 4;
+    string type = 6;
+    string desc = 7;
+    int32 bonusRate = 8;
+}
+
+message IndexResponse {
+    Status status = 999;
+    string uuid = 1; //store uuid
+//    string status = 2;  //refer to elasticsearch e.g. RestStatus.OK
+}
+
+
+message DeleteRequest{
+    string uuid = 1; //store uuid
+}
+
+message DeleteResponse{
+    Status status = 999;
+    string uuid = 1; //store uuid
+}
+
+message SearchRequest {
+    double lat = 1;
+    double lon = 2;
+    string type = 3;
+    string keyword = 4;
+    //refer to https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.1/java-rest-high-search.html
+    int32 from = 100;
+    int32 size = 101;
+
+}
+
+message SearchResponse {
+    Status status = 999;
+    string uuid = 1; //store uuid
+    string name = 2;
+    string logo = 3;
+    Location location = 4;
+    string type = 6;
+    string desc = 7;
+    int32 bonusRate = 8;
+    //refer to https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.1/java-rest-high-search.html
+    int32 from = 100;
+}
