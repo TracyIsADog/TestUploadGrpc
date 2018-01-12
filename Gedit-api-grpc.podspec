@@ -14,6 +14,4 @@ Pod::Spec.new do |s|
   s.author             = { "TracyIsADog" => "303912095@qq.com" }
   s.source       = { :git => "https://github.com/TracyIsADog/TestUploadGrpc.git", :tag => "#{s.version}" }
   s.source_files  = "HelloWorld/Pods/*"
-  #s.source_files  = "Gedit-api-grpc/*"
-
 end
