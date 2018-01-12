@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "Gedit-api-grpc"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "Gedit-api-grpc"
   s.platform     = :ios
   s.description  = <<-DESC 
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "Apache-2.0", :file => "LICENSE" }
   s.author             = { "TracyIsADog" => "303912095@qq.com" }
   s.source       = { :git => "https://github.com/TracyIsADog/TestUploadGrpc.git", :tag => "#{s.version}" }
-  s.source_files  = "Gedit-api-grpc/**/*.{h,m}"
+  s.source_files  = "HelloWorld/Pods/*"
   #s.source_files  = "Gedit-api-grpc/*"
 
 end

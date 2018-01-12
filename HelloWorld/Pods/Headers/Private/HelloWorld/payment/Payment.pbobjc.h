@@ -1,1 +1,0 @@
-../../../../HelloWorld/payment/Payment.pbobjc.h

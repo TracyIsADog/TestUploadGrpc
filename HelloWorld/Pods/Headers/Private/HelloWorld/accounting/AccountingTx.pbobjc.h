@@ -1,1 +1,0 @@
-../../../../HelloWorld/accounting/AccountingTx.pbobjc.h

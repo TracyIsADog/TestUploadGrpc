@@ -1,1 +1,0 @@
-../../../../HelloWorld/store/StoreWorker.pbobjc.h
