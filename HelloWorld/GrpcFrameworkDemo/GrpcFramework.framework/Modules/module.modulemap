@@ -1,0 +1,6 @@
+framework module GrpcFramework {
+  umbrella header "GrpcFramework.h"
+
+  export *
+  module * { export * }
+}

@@ -43,7 +43,7 @@ message UpsertAccountsRequest {
 }
 
 message AccountResponse {
-    common.Status status = 999;
+    Status status = 999;
     Account account = 1;
 }
 
