@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '21B3F4368BA24CEFD90438C7'
+               BlueprintIdentifier = '13C62E3F705323D33C70B258'
                BlueprintName = 'HelloWorld'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libHelloWorld.a'>

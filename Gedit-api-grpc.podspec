@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "Gedit-api-grpc"
-  s.version      = "1.0.2"
+  s.version      = "1.0.5"
   s.summary      = "Gedit-api-grpc"
   s.platform     = :ios
   s.description  = <<-DESC 
